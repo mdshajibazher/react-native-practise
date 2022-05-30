@@ -11,13 +11,16 @@ import {
     Image,
     Alert,
     Platform,
-    StatusBar
+    StatusBar,
+    Dimensions
 } from 'react-native';
 import prompt from 'react-native-prompt-android';
+import {useDeviceOrientation, useDimensions} from "@react-native-community/hooks";
 
 
 export default function App() {
-
+    console.log(useDimensions(),useDeviceOrientation())
+    const {landscape} = useDeviceOrientation();
     const handlePress = () => Alert.alert('My Title', 'My Message', [{
         text: "yes", onPress: () => {
             console.log('you clicked yes')
@@ -42,11 +45,11 @@ export default function App() {
 
     return (
         <SafeAreaView style={styles.container}>
-            <View>
-                <Button color={'tomato'} title={'click me'} onPress={handlePress}></Button>
-            </View>
-            <View style={{marginTop: 15}}>
-                <Button color={'dodgerblue'} title={'click me'} onPress={handlePress2}></Button>
+            <View style={{
+                backgroundColor: 'dodgerblue',
+                width: '100%',
+                height: landscape ? "100%" : "30%"
+            }}>
             </View>
         </SafeAreaView>
     );
