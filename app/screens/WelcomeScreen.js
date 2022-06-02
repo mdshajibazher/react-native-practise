@@ -2,6 +2,7 @@ import React from 'react';
 import { ImageBackground,StyleSheet,View,Image,Text } from 'react-native';
 import { clearErrors } from 'react-native/Libraries/LogBox/Data/LogBoxData';
 import colors from '../../config/colors';
+import AppButton from '../components/AppButton';
 
 function WelcomeScreen(props) {
     return (
@@ -10,8 +11,8 @@ function WelcomeScreen(props) {
                 <Image style={styles.logo} source={require('../assets/logo-red.png')} />
                 <Text>Sell what you dont need</Text>
             </View>
-            <View style={styles.loginButton}></View>
-            <View style={styles.registerButton}></View>
+            <AppButton title='login' onPress={() => handleOnPress()}/>
+            <AppButton title='Register' color='secondary' onPress={() => handleOnPress()}/>
     </ImageBackground>
     );
 }
