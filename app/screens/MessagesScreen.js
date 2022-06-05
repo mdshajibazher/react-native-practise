@@ -1,9 +1,8 @@
-import React from 'react';
-import reactDom from 'react-dom';
+import React, {useState} from 'react';
 import { FlatList,View,SafeAreaView,Platform,StatusBar,StyleSheet } from 'react-native';
-
+import ListItemDeleteAction from '../components/ListItemDeleteAction';
 import ListItem from '../components/ListItem';
-const messages = [
+const initialMessages = [
     {
         id: 1,
         title: 'Mosh Vai 1',
@@ -22,8 +21,18 @@ const messages = [
         description: 'Some description 3',
         image: require('../assets/mosh.jpg')
     }
-]
+];
+
 function MessagesScreen(props) {
+    const [messages,setMessages] = useState(initialMessages);
+    const [refreshing,setRefreshing] = useState(false);
+    const handleDelete = msg  => {
+        const newArr = messages.filter(m => m.id !== msg.id)
+        console.log(newArr);
+        setMessages(newArr);
+    }
+
+
     return (
         <SafeAreaView style={styles.screen}>
             <FlatList
@@ -34,20 +43,23 @@ function MessagesScreen(props) {
                     title={item.title}
                     subTitle={item.description}
                     image={item.image}
-                    renderRightActions={() => (
-                        <View 
-                        style={{
-                            backgroundColor: "red",
-                            width: 30,
-                        }}>
-                        </View>
-                     )}
+                    renderRightActions={() => <ListItemDeleteAction onPress={() => handleDelete(item)}/>}
                 />}
                 ItemSeparatorComponent={() => 
                     (<View 
                     style={{width: "100%", height: 1,backgroundColor: "#ccc"}}
                     />)}
+                refreshing={refreshing}
+                onRefresh={() => {
+                    setMessages([{
+                        id: 3,
+                        title: 'Mosh Vai 3',
+                        description: 'Some description 3',
+                        image: require('../assets/mosh.jpg')
+                    }])
+                }}
             ></FlatList>
+            
            
         </SafeAreaView>
     );
