@@ -1,7 +1,6 @@
 import React from 'react';
 import { SafeAreaView,Platform,StatusBar,StyleSheet } from 'react-native';
 function Screen(props) {
-
     return (
         <SafeAreaView style={styles.screen}>
            {props.children}

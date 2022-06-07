@@ -3,11 +3,11 @@ import { View,TextInput,StyleSheet } from 'react-native';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 import colors from '../../config/colors';
 import defautlStyle from '../../config/styles';
-function AppTextInput({icon,...otherProps}) {
+function AppTextInput({icon,onChangetext,...otherProps}) {
     return (
         <View style={styles.container}>
             {icon && <MaterialCommunityIcons style={styles.icon} name={icon} size={20} color={colors.medium}/> }
-            <TextInput style={defautlStyle.text}  {...otherProps}/>
+            <TextInput onChangeText={onChangetext} style={defautlStyle.text}  {...otherProps}/>
         </View>
     );
 }
