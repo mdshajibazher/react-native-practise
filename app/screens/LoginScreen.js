@@ -1,11 +1,10 @@
 import React from "react";
 import { StyleSheet, Image } from "react-native";
 import Screen from "./Screen";
-import AppTextInput from "../components/AppTextInput";
-import AppButton from "../components/AppButton";
-import { Formik } from "formik";
-import ErrorMessage from "../components/ErrorMessage";
 import * as Yup from "yup";
+import AppFormField from "../components/forms/AppFormField";
+import SubmitButton from "../components/forms/SubmitButton";
+import AppForm from "../components/forms/AppForm";
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
   password: Yup.string().required().min(4).label("Password"),
@@ -14,47 +13,32 @@ const validationSchema = Yup.object().shape({
 function LoginScreen(props) {
   return (
     <Screen>
-      <Formik
+      <AppForm
         initialValues={{ email: "", password: "" }}
         onSubmit={(values) => console.log(values)}
         validationSchema={validationSchema}
       >
-        {({ handleChange, handleSubmit, errors, setFieldTouched, touched }) => (
-          <>
-            <Image
-              source={require("../assets/logo-red.png")}
-              style={styles.logo}
-            />
-            <AppTextInput
-              onBlur={() => setFieldTouched("email")}
-              placeholder="Enter Email"
-              icon="email"
-              autoCapitalize="none"
-              autoCorrect={false}
-              keyboardType="email-address"
-              onChangetext={handleChange("email")}
-            />
-            {errors.email && touched.email && (
-              <ErrorMessage visible={touched.email} error={errors.email} />
-            )}
-            <AppTextInput
-              onBlur={() => setFieldTouched("password")}
-              placeholder="Enter Password"
-              icon="form-textbox-password"
-              autoCapitalize="none"
-              autoCorrect={false}
-              textContentType="password"
-              secureTextEntry={true}
-              onChangetext={handleChange("password")}
-            />
-            {errors.password && touched.password && (
-              <ErrorMessage visible={touched.email} error={errors.password} />
-            )}
+        <Image source={require("../assets/logo-red.png")} style={styles.logo} />
+        <AppFormField
+          name="email"
+          placeholder="Enter Email"
+          icon="email"
+          autoCapitalize="none"
+          autoCorrect={false}
+          keyboardType="email-address"
+        />
 
-            <AppButton title="login" onPress={handleSubmit} />
-          </>
-        )}
-      </Formik>
+        <AppFormField
+          name="password"
+          placeholder="Enter Password"
+          icon="form-textbox-password"
+          autoCapitalize="none"
+          autoCorrect={false}
+          textContentType="password"
+          secureTextEntry={true}
+        />
+        <SubmitButton title="Login" />
+      </AppForm>
     </Screen>
   );
 }
